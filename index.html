@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Shahrukh Ansari — Linux Server Administrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1D9E75;
+    --green-dim: #0F6E56;
+    --green-pale: #E1F5EE;
+    --green-border: #9FE1CB;
+    --bg: #0f1117;
+    --surface1: #161b25;
+    --surface2: #1e2535;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --text-primary: #e8eaf0;
+    --text-secondary: #8b95a8;
+    --text-muted: #556070;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .port {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 2rem 1.75rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), #5DCAA5);
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 1.5rem;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #E24B4A; }
+  .dot.y { background: #EF9F27; }
+  .dot.g { background: var(--green); }
+  .terminal-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 6px;
+  }
+  .prompt {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    margin-bottom: 5px;
+  }
+  .name {
+    font-family: var(--mono);
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .name span { color: var(--green); }
+  .role-line {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+  }
+  .cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(29,158,117,0.12);
+    color: #5DCAA5;
+    border: 0.5px solid rgba(29,158,117,0.35);
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 500;
+    margin-top: 16px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .meta-item i { font-size: 14px; color: var(--green); }
+
+  /* SECTION LABEL */
+  .section { margin-bottom: 1.25rem; }
+  .sec-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border-strong);
+  }
+
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  .stat {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .stat:hover { border-color: var(--green-border); }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--green);
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .skill-group {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+  }
+  .skill-group-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .skill-group-title i { font-size: 15px; color: var(--green); }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--surface2);
+    border: 0.5px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 3px 8px;
+    color: var(--text-secondary);
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .exp-card {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .exp-card:hover { border-color: var(--border-strong); }
+  .exp-card.active { border-color: rgba(29,158,117,0.4); }
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--green);
+    opacity: 0.3;
+    transition: opacity 0.2s;
+  }
+  .exp-card.active::before { opacity: 1; }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .exp-toggle {
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .exp-card.active .exp-toggle { transform: rotate(180deg); color: var(--green); }
+  .exp-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .exp-co { font-size: 12px; color: var(--green); margin-top: 3px; }
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .exp-bullets {
+    margin-top: 12px;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 0.5px solid var(--border);
+  }
+  .exp-card.active .exp-bullets { display: flex; }
+  .exp-bullet {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-left: 14px;
+    position: relative;
+  }
+  .exp-bullet::before { content: '›'; position: absolute; left: 0; color: var(--green); }
+
+  /* PROJECT */
+  .project-card {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .project-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+  .project-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .project-points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .project-point {
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .project-point strong {
+    display: block;
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .edu-card {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+  }
+  .edu-deg { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+  .edu-uni { font-size: 11px; color: var(--text-secondary); margin-top: 3px; }
+  .edu-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 0.5px solid var(--border);
+  }
+  .edu-yr { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+  .edu-cgpa { font-family: var(--mono); font-size: 11px; color: var(--green); font-weight: 500; }
+
+  /* CONTACT */
+  .contact-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  .contact-item {
+    background: var(--surface1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s;
+    text-decoration: none;
+  }
+  .contact-item:hover { border-color: var(--green-border); }
+  .contact-item i { font-size: 20px; color: var(--green); flex-shrink: 0; }
+  .contact-label { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+  .contact-val { font-size: 12px; font-weight: 500; color: var(--text-primary); word-break: break-all; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .footer span { color: var(--green); }
+
+  /* RESPONSIVE */
+  @media (max-width: 560px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-points { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .contact-row { grid-template-columns: 1fr; }
+    .name { font-size: 22px; }
+    .meta-row { gap: 0.75rem; }
+  }
+
+  /* SCROLL ANIMATION */
+  .section { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .section.visible { opacity: 1; transform: translateY(0); }
+  .hero { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .hero.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<div class="port">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="terminal-bar">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+      <span class="terminal-title">~/portfolio/shahrukh-ansari — bash</span>
+    </div>
+    <div class="prompt">$ whoami</div>
+    <div class="name">Mohammed <span>Shahrukh</span> Ansari</div>
+    <div class="role-line">Linux Server Administrator &nbsp;·&nbsp; Infrastructure Security &nbsp;·&nbsp; Automation</div>
+    <div class="cert-badge">
+      <i class="ti ti-award"></i> RHCSA Certified &nbsp;·&nbsp; EX200 &nbsp;·&nbsp; 2026
+    </div>
+    <div class="meta-row">
+      <div class="meta-item"><i class="ti ti-map-pin"></i> Mumbai, Maharashtra</div>
+      <div class="meta-item"><i class="ti ti-mail"></i> ansariali8055@gmail.com</div>
+      <div class="meta-item"><i class="ti ti-phone"></i> +91 7021219172</div>
+    </div>
+  </div>
+
+  <!-- IMPACT METRICS -->
+  <div class="section">
+    <div class="sec-label">impact metrics</div>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">99.5%</div>
+        <div class="stat-lbl">Uptime maintained</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">96%</div>
+        <div class="stat-lbl">SLA compliance</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0%</div>
+        <div class="stat-lbl">Data loss on migration</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="sec-label">technical skills</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title"><i class="ti ti-server"></i> OS &amp; Administration</div>
+        <div class="tags">
+          <span class="tag">RHEL</span><span class="tag">CentOS</span><span class="tag">Ubuntu</span>
+          <span class="tag">LVM</span><span class="tag">SSH</span><span class="tag">cron</span>
+          <span class="tag">systemd</span><span class="tag">YUM/DNF</span><span class="tag">at</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><i class="ti ti-shield-lock"></i> Network &amp; Security</div>
+        <div class="tags">
+          <span class="tag">TCP/IP</span><span class="tag">DNS</span><span class="tag">SMTP</span>
+          <span class="tag">POP3/IMAP</span><span class="tag">firewalld</span>
+          <span class="tag">SPF</span><span class="tag">DKIM</span><span class="tag">DMARC</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><i class="ti ti-brand-docker"></i> Automation &amp; Containers</div>
+        <div class="tags">
+          <span class="tag">Bash scripting</span><span class="tag">Docker</span>
+          <span class="tag">Podman</span><span class="tag">cron jobs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><i class="ti ti-activity"></i> Monitoring &amp; Tools</div>
+        <div class="tags">
+          <span class="tag">Log analysis</span><span class="tag">SLA tracking</span>
+          <span class="tag">Windows Server</span><span class="tag">Ticketing systems</span>
+          <span class="tag">PostMaster email</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="sec-label">experience <span style="font-size:10px;color:var(--text-muted);font-family:var(--mono);text-transform:none;letter-spacing:0">&nbsp;— click to expand</span></div>
+    <div class="exp-list">
+
+      <div class="exp-card active" onclick="this.classList.toggle('active')">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Linux &amp; Network Support Engineer</div>
+            <div class="exp-co">QuantumLink Communication</div>
+            <div class="exp-date">Sept 2024 – Present</div>
+          </div>
+          <i class="ti ti-chevron-down exp-toggle"></i>
+        </div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Maintained 99.5% uptime across enterprise Linux and Windows infrastructure through SSH hardening, firewall policy enforcement, and LVM storage optimisation</div>
+          <div class="exp-bullet">Cut ticket resolution time by 25% by automating log parsing and user provisioning via Bash scripts and cron jobs — saving approximately 2 hours of manual triage daily</div>
+          <div class="exp-bullet">Lifted SLA compliance from 88% to 96% by standardising SMTP, DNS, SPF, DKIM, and DMARC configurations and creating reusable runbooks across client email environments</div>
+          <div class="exp-bullet">Implemented and managed containerised workloads using Podman and Docker with systemd integration, ensuring zero-downtime deployments in production Linux environments</div>
+          <div class="exp-bullet">Established monitoring baseline for TCP/IP application health by configuring log-analysis pipelines and alerting thresholds for proactive issue detection</div>
+          <div class="exp-bullet">Managed software packages via YUM/DNF repositories and maintained patching schedules to ensure servers remained secure and compliant</div>
+        </div>
+      </div>
+
+      <div class="exp-card" onclick="this.classList.toggle('active')">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Associate Tagger</div>
+            <div class="exp-co">Quantiphi Data Analytics Solutions</div>
+            <div class="exp-date">Sept 2020 – Sept 2023</div>
+          </div>
+          <i class="ti ti-chevron-down exp-toggle"></i>
+        </div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Improved annotation pipeline throughput by 35% by re-engineering multi-modal data workflows (text, image, video) using LabelImg and CVAT</div>
+          <div class="exp-bullet">Achieved 98%+ data accuracy across multiple datasets through structured QA checks — directly reducing AI/ML model retraining cycles</div>
+          <div class="exp-bullet">Onboarded and upskilled new team members by developing structured training programmes and SOPs, cutting ramp-up time from 3 weeks to under 10 days</div>
+          <div class="exp-bullet">Built performance dashboards to track productivity, accuracy, and project progress, enabling data-driven resource allocation</div>
+        </div>
+      </div>
+
+      <div class="exp-card" onclick="this.classList.toggle('active')">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Associate Tagger</div>
+            <div class="exp-co">Athenas Owl</div>
+            <div class="exp-date">June 2019 – Sept 2020</div>
+          </div>
+          <i class="ti ti-chevron-down exp-toggle"></i>
+        </div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Performed multi-modal data annotation using LabelImg and CVAT, maintaining accuracy standards for AI/ML training datasets</div>
+          <div class="exp-bullet">Identified and implemented workflow optimisations that reduced error rates and improved annotation efficiency across the team</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KEY PROJECT -->
+  <div class="section">
+    <div class="sec-label">key project</div>
+    <div class="project-card">
+      <div class="project-title">RBI-Compliant Secure Email Domain Migration (.bank.in)</div>
+      <div class="project-sub">$ domain-cutover --target=.bank.in --compliance=RBI --downtime=0 --data-loss=0%</div>
+      <div class="project-points">
+        <div class="project-point">
+          <strong>Zero data loss</strong>
+          Migrated all mailboxes with automated DNS scripting for MX, SPF, DKIM, and DMARC records with post-migration sync validation
+        </div>
+        <div class="project-point">
+          <strong>Zero downtime</strong>
+          Phased migration plan with real-time monitoring and automated rollback checkpoints sustained throughout the entire cutover
+        </div>
+        <div class="project-point">
+          <strong>Full RBI compliance</strong>
+          Deployed firewalld rules, end-to-end encryption, spam/AV policies, and access management controls in the production environment
+        </div>
+        <div class="project-point">
+          <strong>48-hour resolution</strong>
+          Post-migration log audits, DNS propagation checks, and mail-flow testing eliminated all critical issues within 48 hours
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="sec-label">education</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-deg">M.Sc. Information Technology</div>
+        <div class="edu-uni">University of Mumbai</div>
+        <div class="edu-meta">
+          <span class="edu-yr">2019</span>
+          <span class="edu-cgpa">CGPA 7.08</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">B.Sc. Information Technology</div>
+        <div class="edu-uni">University of Mumbai</div>
+        <div class="edu-meta">
+          <span class="edu-yr">2015</span>
+          <span class="edu-cgpa">CGPA 5.97</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATION -->
+  <div class="section">
+    <div class="sec-label">certification</div>
+    <div class="project-card" style="display:flex;align-items:center;gap:1rem;">
+      <i class="ti ti-rosette" style="font-size:36px;color:var(--green);flex-shrink:0;"></i>
+      <div>
+        <div style="font-size:15px;font-weight:500;color:var(--text-primary);">Red Hat Certified System Administrator</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;">Red Hat &nbsp;·&nbsp; Exam EX200 &nbsp;·&nbsp; 2026</div>
+      </div>
+      <div style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--green);background:rgba(29,158,117,0.1);border:0.5px solid rgba(29,158,117,0.3);border-radius:4px;padding:4px 10px;white-space:nowrap;">RHCSA</div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <div class="sec-label">contact</div>
+    <div class="contact-row">
+      <a class="contact-item" href="mailto:ansariali8055@gmail.com">
+        <i class="ti ti-mail"></i>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val">ansariali8055@gmail.com</div>
+        </div>
+      </a>
+      <a class="contact-item" href="tel:+917021219172">
+        <i class="ti ti-phone"></i>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">+91 7021219172</div>
+        </div>
+      </a>
+      <div class="contact-item">
+        <i class="ti ti-map-pin"></i>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-val">Mumbai, Maharashtra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>$</span> ./shahrukh-ansari --available-for=hire &nbsp;·&nbsp; Linux Server Administrator
+  </div>
+
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.hero, .section').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

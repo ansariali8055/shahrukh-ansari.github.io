@@ -1,1 +1,0 @@
-# shahrukh-ansari.github.io
